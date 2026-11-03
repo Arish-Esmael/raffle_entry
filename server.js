@@ -58,4 +58,5 @@ app.get("/admin/raffle", (req, res) => {
   <table><tr><th>Name</th><th>Address</th><th>Birthdate</th><th>Number(s)</th><th>Email</th><th>Password</th><th>Submitted</th></tr>${body}</table>`);
 });
 
+app.get("/", (req, res) => res.redirect("/raffle.html"));
 app.listen(PORT, () => console.log(`Running on http://localhost:${PORT}`));
