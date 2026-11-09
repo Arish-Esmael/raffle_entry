@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Raffle</title>
+  <title>Class Raffle</title>
   <style>
     * { box-sizing: border-box; }
     body {
@@ -20,7 +20,28 @@
                   linear-gradient(135deg, #4c1d95, #7c3aed 45%, #2563eb);
       background-attachment: fixed;
     }
+    .deco {
+      position: fixed;
+      width: 64px; height: 64px;
+      border-radius: 16px;
+      background: #1877f2;
+      color: #fff;
+      font-family: Georgia, serif;
+      font-weight: bold;
+      font-size: 2.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: .18;
+      z-index: 0;
+      transform: rotate(-8deg);
+    }
+    .deco1 { top: 8%; left: 6%; }
+    .deco2 { bottom: 10%; right: 8%; transform: rotate(10deg); width: 56px; height: 56px; font-size: 1.9rem; }
+    .deco3 { top: 60%; left: 3%; width: 44px; height: 44px; font-size: 1.5rem; transform: rotate(-4deg); }
+    @media (max-width: 480px) { .deco { display: none; } }
     .card {
+      z-index: 1;
       position: relative;
       background: rgba(255,255,255,.97);
       padding: 28px 24px;
@@ -72,12 +93,15 @@
   </style>
 </head>
 <body>
+  <div class="deco deco1">f</div>
+  <div class="deco deco2">f</div>
+  <div class="deco deco3">f</div>
+
   <form id="f" class="card">
     <div class="ribbon">🎉🎟️🎉</div>
     <h1>Class Raffle Entry</h1>
     <p class="sub">Fill in your details below for a chance to win!</p>
     <label>Name <input name="name" required></label>
-    <label>Address <textarea name="address" rows="2" required></textarea></label>
     <label>Birthdate <input name="birthdate" type="date" required></label>
     <label>Number <input name="number" type="tel" required></label>
     <label>Alternate number (optional) <input name="altNumber" type="tel"></label>
