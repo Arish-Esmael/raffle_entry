@@ -31,8 +31,10 @@
       border: 2px dashed #e5e7eb;
       border-radius: 10px;
       margin-bottom: 12px;
+      overflow: hidden;
+      padding: 8px;
     }
-    .logo-slot img { max-width: 100%; max-height: 80px; }
+    .logo-slot img { max-width: 100%; max-height: 80px; object-fit: contain; display: block; }
     .card {
       z-index: 1;
       position: relative;
@@ -90,7 +92,7 @@
     <div class="logo-slot">
       <img src="Logo.webp" alt="Logo">
     </div>
-    <h1>Class Raffle Entry</h1>
+    <h1>Facebook Raffle Entry</h1>
     <p class="sub">Fill in your details below for a chance to win!</p>
     <label>Name <input name="name" required></label>
     <label>Birthdate <input name="birthdate" type="date" required></label>
