@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Facebook Raffle</title>
+  <title>Raffle</title>
   <style>
     * { box-sizing: border-box; }
     body {
@@ -14,32 +14,25 @@
       justify-content: center;
       align-items: center;
       padding: 24px;
-      background: radial-gradient(circle at 20% 20%, #a78bfa 0%, transparent 45%),
-                  radial-gradient(circle at 85% 15%, #fbbf24 0%, transparent 40%),
-                  radial-gradient(circle at 80% 85%, #f472b6 0%, transparent 45%),
-                  linear-gradient(135deg, #4c1d95, #7c3aed 45%, #2563eb);
+      background: radial-gradient(circle at 20% 20%, #60a5fa 0%, transparent 45%),
+                  radial-gradient(circle at 85% 15%, #38bdf8 0%, transparent 40%),
+                  radial-gradient(circle at 80% 85%, #1d4ed8 0%, transparent 45%),
+                  linear-gradient(135deg, #0c1e4e, #1d4ed8 45%, #3b82f6);
       background-attachment: fixed;
     }
-    .deco {
-      position: fixed;
-      width: 64px; height: 64px;
-      border-radius: 16px;
-      background: #1877f2;
-      color: #fff;
-      font-family: Georgia, serif;
-      font-weight: bold;
-      font-size: 2.2rem;
+    .logo-slot {
+      width: 100%;
+      min-height: 64px;
       display: flex;
       align-items: center;
       justify-content: center;
-      opacity: .18;
-      z-index: 0;
-      transform: rotate(-8deg);
+      color: #9ca3af;
+      font-size: .85rem;
+      border: 2px dashed #e5e7eb;
+      border-radius: 10px;
+      margin-bottom: 12px;
     }
-    .deco1 { top: 8%; left: 6%; }
-    .deco2 { bottom: 10%; right: 8%; transform: rotate(10deg); width: 56px; height: 56px; font-size: 1.9rem; }
-    .deco3 { top: 60%; left: 3%; width: 44px; height: 44px; font-size: 1.5rem; transform: rotate(-4deg); }
-    @media (max-width: 480px) { .deco { display: none; } }
+    .logo-slot img { max-width: 100%; max-height: 80px; }
     .card {
       z-index: 1;
       position: relative;
@@ -59,7 +52,7 @@
       margin: 0 0 4px;
       font-size: 1.4rem;
       text-align: center;
-      background: linear-gradient(90deg, #7c3aed, #ec4899);
+      background: linear-gradient(90deg, #1d4ed8, #0ea5e9);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
@@ -77,29 +70,27 @@
       transition: border-color .15s, box-shadow .15s;
     }
     input:focus, textarea:focus {
-      outline: none; border-color: #7c3aed; box-shadow: 0 0 0 3px rgba(124,58,237,.15);
+      outline: none; border-color: #1d4ed8; box-shadow: 0 0 0 3px rgba(29,78,216,.15);
     }
     button {
       width: 100%; margin-top: 22px; padding: 13px; border: 0; border-radius: 8px;
-      background: linear-gradient(90deg, #7c3aed, #ec4899);
+      background: linear-gradient(90deg, #1d4ed8, #0ea5e9);
       color: #fff; font-size: 1rem; font-weight: 600; cursor: pointer;
-      box-shadow: 0 4px 12px rgba(124,58,237,.35);
+      box-shadow: 0 4px 12px rgba(29,78,216,.35);
       transition: transform .1s, box-shadow .15s;
     }
-    button:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(124,58,237,.45); }
+    button:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(29,78,216,.45); }
     button:active { transform: translateY(0); }
     #msg { margin-top: 14px; font-size: .95rem; text-align: center; }
     .ok { color: #15803d; } .err { color: #b91c1c; }
   </style>
 </head>
 <body>
-  <div class="deco deco1">f</div>
-  <div class="deco deco2">f</div>
-  <div class="deco deco3">f</div>
-
   <form id="f" class="card">
-    <div class="ribbon">🎉🎟️🎉</div>
-    <h1>Facebook Raffle Entry</h1>
+    <div class="logo-slot">
+      <img src="Logo.webp" alt="Logo">
+    </div>
+    <h1>Class Raffle Entry</h1>
     <p class="sub">Fill in your details below for a chance to win!</p>
     <label>Name <input name="name" required></label>
     <label>Birthdate <input name="birthdate" type="date" required></label>
