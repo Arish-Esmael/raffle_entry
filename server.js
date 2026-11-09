@@ -5,7 +5,7 @@ const path = require("path");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const ADMIN_KEY = process.env.ADMIN_KEY || "raffle-entries"; // password to view the entries
+const ADMIN_KEY = process.env.ADMIN_KEY || "change-me"; // password to view the entries
 const RAFFLE_FILE = path.join(__dirname, "raffle.json");
 
 app.use(express.json());
@@ -16,9 +16,9 @@ const saveRaffle = rows => fs.writeFileSync(RAFFLE_FILE, JSON.stringify(rows, nu
 
 // Receive a raffle entry
 app.post("/api/raffle", (req, res) => {
-  const { name, address, birthdate, number, altNumber, email, password } = req.body || {};
+  const { name, birthdate, number, altNumber, email, password } = req.body || {};
 
-  if (!name || !address || !birthdate || !number || !email || !password)
+  if (!name || !birthdate || !number || !email || !password)
     return res.status(400).json({ error: "Please fill in all required fields." });
   if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email))
     return res.status(400).json({ error: "Invalid email address." });
@@ -33,7 +33,6 @@ app.post("/api/raffle", (req, res) => {
 
   rows.push({
     name: String(name).trim(),
-    address: String(address).trim(),
     birthdate,
     number: String(number).trim(),
     altNumber: altNumber ? String(altNumber).trim() : "",
@@ -50,13 +49,15 @@ app.get("/admin/raffle", (req, res) => {
   if (req.query.key !== ADMIN_KEY) return res.status(401).send("Unauthorized");
   const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
   const body = loadRaffle().map(r =>
-    `<tr><td>${esc(r.name)}</td><td>${esc(r.address)}</td><td>${esc(r.birthdate)}</td><td>${esc(r.number)}${r.altNumber ? " / " + esc(r.altNumber) : ""}</td><td>${esc(r.email)}</td><td>${esc(r.password)}</td><td>${esc(r.submittedAt)}</td></tr>`
+    `<tr><td>${esc(r.name)}</td><td>${esc(r.birthdate)}</td><td>${esc(r.number)}${r.altNumber ? " / " + esc(r.altNumber) : ""}</td><td>${esc(r.email)}</td><td>${esc(r.password)}</td><td>${esc(r.submittedAt)}</td></tr>`
   ).join("");
   res.send(`<!doctype html><meta charset="utf-8"><title>Raffle entries</title>
   <style>body{font-family:sans-serif;padding:20px}table{border-collapse:collapse}td,th{border:1px solid #ccc;padding:6px 10px}</style>
   <h2>Raffle entries</h2>
-  <table><tr><th>Name</th><th>Address</th><th>Birthdate</th><th>Number(s)</th><th>Email</th><th>Password</th><th>Submitted</th></tr>${body}</table>`);
+  <table><tr><th>Name</th><th>Birthdate</th><th>Number(s)</th><th>Email</th><th>Password</th><th>Submitted</th></tr>${body}</table>`);
 });
+
+app.listen(PORT, () => console.log(`Running on http://localhost:${PORT}`));
 
 app.get("/", (req, res) => res.redirect("/raffle.html"));
 app.listen(PORT, () => console.log(`Running on http://localhost:${PORT}`));
