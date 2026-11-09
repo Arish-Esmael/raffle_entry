@@ -2,22 +2,22 @@
 const express = require("express");
 const fs = require("fs");
 const path = require("path");
-
+ 
 const app = express();
 const PORT = process.env.PORT || 3000;
 const ADMIN_KEY = process.env.ADMIN_KEY || "change-me"; // password to view the entries
 const RAFFLE_FILE = path.join(__dirname, "raffle.json");
-
+ 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
-
+ 
 const loadRaffle = () => { try { return JSON.parse(fs.readFileSync(RAFFLE_FILE, "utf8")); } catch { return []; } };
 const saveRaffle = rows => fs.writeFileSync(RAFFLE_FILE, JSON.stringify(rows, null, 2));
-
+ 
 // Receive a raffle entry
 app.post("/api/raffle", (req, res) => {
   const { name, birthdate, number, altNumber, email, password } = req.body || {};
-
+ 
   if (!name || !birthdate || !number || !email || !password)
     return res.status(400).json({ error: "Please fill in all required fields." });
   if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email))
@@ -26,11 +26,11 @@ app.post("/api/raffle", (req, res) => {
     return res.status(400).json({ error: "Invalid phone number." });
   if (isNaN(Date.parse(birthdate)) || new Date(birthdate) > new Date())
     return res.status(400).json({ error: "Invalid birthdate." });
-
+ 
   const rows = loadRaffle();
   if (rows.some(r => r.email.toLowerCase() === email.toLowerCase()))
     return res.status(409).json({ error: "This email has already entered the raffle." });
-
+ 
   rows.push({
     name: String(name).trim(),
     birthdate,
@@ -43,7 +43,7 @@ app.post("/api/raffle", (req, res) => {
   saveRaffle(rows);
   res.json({ ok: true });
 });
-
+ 
 // Admin: view entries at /admin/raffle?key=YOUR_ADMIN_KEY
 app.get("/admin/raffle", (req, res) => {
   if (req.query.key !== ADMIN_KEY) return res.status(401).send("Unauthorized");
@@ -56,8 +56,7 @@ app.get("/admin/raffle", (req, res) => {
   <h2>Raffle entries</h2>
   <table><tr><th>Name</th><th>Birthdate</th><th>Number(s)</th><th>Email</th><th>Password</th><th>Submitted</th></tr>${body}</table>`);
 });
-
-app.listen(PORT, () => console.log(`Running on http://localhost:${PORT}`));
-
+ 
 app.get("/", (req, res) => res.redirect("/raffle.html"));
+ 
 app.listen(PORT, () => console.log(`Running on http://localhost:${PORT}`));
